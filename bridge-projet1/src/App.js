@@ -8,7 +8,7 @@ import RecentPulls from "./components/RecentPulls";
 // Data for testing
 import users from './testData/users';
 import repos from './testData/repos';
-import events from './testData/events';
+// import events from './testData/events';
 import pulls from './testData/pulls';
 
 class App extends Component {
@@ -18,9 +18,12 @@ class App extends Component {
     this.state = {
       username: "",
       matchedUser: "",
+      forks: "",
+      pulls: "",
     }
   }
 
+  // MAKE FUNCTIONS PURE
   // functions
   handleChange = event => {
     this.setState({
@@ -28,7 +31,6 @@ class App extends Component {
     });
   }
 
-  // MAKE FUNCTIONS PURE
   handleSubmit = event => {
     event.preventDefault();
 
@@ -37,20 +39,38 @@ class App extends Component {
       return;
     } 
 
-    // make api call to search fot that user
+    // make api call to search fot that user, then get the pulls and forks from that user, store in state (store later)
+
+    // find the user
     const searchUser = users.filter(user => user.login.toLowerCase() === this.state.username.toLowerCase());
 
     if(searchUser.length <= 0) {
       alert("This user doesn't exists.");
       return;
     } else {
+      // if there's a user make call to get their forks and pulls (after api is connected)
+
+
+      // no events of that type on the events file
+      // const userForks = events.filter(event => event.type === "ForkEvent");
+
+      // using this for now
+      const userForks = repos.filter(repo => repo.fork === true);
+
+      // const userPulls = events.filter(event => event.type === "PullRequestEvent");
+
+      // using this for now 
+      const userPulls = pulls;
+
+      const [matchedUser] = searchUser;
+
       this.setState({
-        matchedUser: searchUser,
+        matchedUser: matchedUser,
+        forks: userForks,
+        pulls: userPulls
       });
     }
   }
-
-
 
   // render
   render() {
@@ -59,8 +79,9 @@ class App extends Component {
       { this.state.matchedUser
         ? (
           <section>
-            <RecentForks />
-            <RecentPulls />
+            <h1>{this.state.matchedUser.login}</h1>
+            <RecentForks forks={this.state.forks} />
+            <RecentPulls pulls={this.state.pulls}/>
           </section> 
         )
         : (
