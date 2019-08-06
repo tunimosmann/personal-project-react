@@ -1,5 +1,9 @@
 import React from 'react';
-import events from './../testData/events';
-import pulls from './../testData/pulls';
+
+const RecentPulls = () => {
+    return <div>
+        <h2>Recent Pull Requests</h2>
+    </div>
+}
 
 export default RecentPulls;

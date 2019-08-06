@@ -1,5 +1,9 @@
 import React from 'react';
-import events from './../testData/events';
-import repos from './../testData/repos';
+
+const RecentForks= () => {
+    return <div>
+        <h2>Recent Forks</h2>
+    </div>
+}
 
 export default RecentForks;
