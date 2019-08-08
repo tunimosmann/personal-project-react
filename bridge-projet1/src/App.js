@@ -70,12 +70,23 @@ class App extends Component {
       const forked = data.filter(entry => entry.type === "ForkEvent");
       const pulled = data.filter(entry => entry.type === "PullRequestEvent");
 
-      console.log(forked);
-
-      const forkData = forked.map(({ payload, repo: {name, url} }) => {
-        console.log("payload", payload);
-        console.log("repo", name, url);
+      const forkData = forked.map(({ payload: {forkee: {full_name, html_url}}, repo: {name} }) => {
+        return {
+          forkName: full_name, 
+          forkUrl: html_url, 
+          forkedFrom: name
+        }
       });
+
+      const pullData = pulled.map(({ payload: {pull_request: {title, state}} }) => {
+        return {
+          pullName: title,
+          status: state
+        }
+      });
+
+      // console.log(forkData);
+      // console.log(pullData);
 
       // console.log("forked", forked);
       // console.log("pulled", pulled);
