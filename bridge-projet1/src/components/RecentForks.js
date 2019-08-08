@@ -6,7 +6,7 @@ const RecentForks = (props) => {
 
         <ul>
             {props.forks.map(fork => {
-                console.log(fork);
+                // console.log(fork);
 
                 return <li>
                     <a href={fork.url} target="_blank">{fork.full_name}</a>

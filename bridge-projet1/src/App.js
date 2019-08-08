@@ -6,20 +6,21 @@ import RecentForks from "./components/RecentForks";
 import RecentPulls from "./components/RecentPulls";
 
 // Data for testing
-import users from './testData/users';
-import repos from './testData/repos';
+// import users from './testData/users';
+// import repos from './testData/repos';
 // import events from './testData/events';
-import pulls from './testData/pulls';
+// import pulls from './testData/pulls';
 
 class App extends Component {
   // constructor
   constructor(props) {
     super(props);
     this.state = {
+      searchEntry: "",
       username: "",
-      matchedUser: "",
-      forks: "",
-      pulls: "",
+      userData: [],
+      forks: [],
+      pulls: [],
     }
   }
 
@@ -34,62 +35,113 @@ class App extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    if(this.state.username.trim() === "") {
+    if(this.state.searchEntry.trim() === "") {
       alert("Please enter a valid username.");
       return;
     } 
 
-    // make api call to search fot that user, then get the pulls and forks from that user, store in state (store later)
+    const user = this.state.searchEntry.toLowerCase();
+    this.fetchUser(user);
 
-    // find the user
-    const searchUser = users.filter(user => user.login.toLowerCase() === this.state.username.toLowerCase());
-
-    if(searchUser.length <= 0) {
-      alert("This user doesn't exists.");
-      return;
-    } else {
-      // if there's a user make call to get their forks and pulls (after api is connected)
-
-
-      // no events of that type on the events file
-      // const userForks = events.filter(event => event.type === "ForkEvent");
-
-      // using this for now
-      const userForks = repos.filter(repo => repo.fork === true);
-
-      // const userPulls = events.filter(event => event.type === "PullRequestEvent");
-
-      // using this for now 
-      const userPulls = pulls;
-
-      const [matchedUser] = searchUser;
-
-      this.setState({
-        matchedUser: matchedUser,
-        forks: userForks,
-        pulls: userPulls
-      });
-    }
+    this.setState({
+      searchEntry: "",
+      username: this.state.searchEntry,
+    }); 
   }
+
+  fetchUser = (user) => {
+    fetch(`https://api.github.com/users/${user}`)
+    .then(response => {
+      if (!response.ok) {
+        throw Error("No user.");
+      }
+      return response.json();
+    })
+    .then(({login}) => {
+      return fetch(`https://api.github.com/users/${login}/events`);
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw Error("No events.");
+      }
+      return response.json();
+    })
+    .then(data => {
+      const forked = data.filter(entry => entry.type === "ForkEvent");
+      const pulled = data.filter(entry => entry.type === "PullRequestEvent");
+
+      console.log(forked);
+
+      const forkData = forked.map(({ payload, repo: {name, url} }) => {
+        console.log("payload", payload);
+        console.log("repo", name, url);
+      });
+
+      // console.log("forked", forked);
+      // console.log("pulled", pulled);
+      // this.setState({
+      //   forks: forked,
+      // });
+    })
+    .catch(() => {
+      alert("User don't exist. Please enter a valid username.");
+    });
+  }
+
+  // componentDidMount() {
+  //   const user = this.state.username;
+  //   if(user) {
+  //     fetch(`https://api.github.com/users/${user}`)
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw Error("No user.");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(({avatar_url, repos_url, events_url}) => {
+  //       this.setState({
+  //         userInfo: {avatar: avatar_url, repos_url, events_url}
+  //       });
+  //     })
+  //     .catch(() => {
+  //       alert("User don't exist. Please enter a valid username.");
+  //     });
+  //   }
+
+  //   // const userData = this.state.userData;
+  //   // if(userData) {
+  //   //   fetch(`${this.state.userData.repos_url}`)
+  //   //   .then(response => {
+  //   //     if (!response.ok) {
+  //   //       throw Error("No user repos data.");
+  //   //     }
+  //   //     return response.json();
+  //   //   })
+  //   //   .then(data => {
+  //   //     console.log(data);
+  //   //   })
+  //   // }
+  // }
+  
 
   // render
   render() {
     return (
       <div>
-      { this.state.matchedUser
+      { this.state.username
         ? (
           <section>
-            <h1>{this.state.matchedUser.login}</h1>
-            <RecentForks forks={this.state.forks} />
-            <RecentPulls pulls={this.state.pulls}/>
+            <h1>{this.state.username}</h1>
+            {/* <RecentForks forks={this.state.forks} />
+            <RecentPulls pulls={this.state.pulls} /> */}
           </section> 
         )
         : (
-            <form onSubmit={this.handleSubmit}>
-            <label htmlFor="username">GitHub Username</label>
-            <input type="text" id="username" name="username" onChange={this.handleChange}></input>
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="searchEntry">GitHub Username</label>
+            <input type="text" id="searchEntry" name="searchEntry" onChange={this.handleChange}></input>
             <button>Get User</button>
-        </form>
+          </form>
         )
       }  
       </div>
