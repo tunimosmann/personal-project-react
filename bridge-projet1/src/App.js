@@ -5,12 +5,6 @@ import './App.css';
 import RecentForks from "./components/RecentForks";
 import RecentPulls from "./components/RecentPulls";
 
-// Data for testing
-// import users from './testData/users';
-// import repos from './testData/repos';
-// import events from './testData/events';
-// import pulls from './testData/pulls';
-
 class App extends Component {
   // constructor
   constructor(props) {
@@ -18,7 +12,6 @@ class App extends Component {
     this.state = {
       searchEntry: "",
       username: "",
-      userData: [],
       forks: [],
       pulls: [],
     }
@@ -85,55 +78,15 @@ class App extends Component {
         }
       });
 
-      // console.log(forkData);
-      // console.log(pullData);
-
-      // console.log("forked", forked);
-      // console.log("pulled", pulled);
-      // this.setState({
-      //   forks: forked,
-      // });
+      this.setState({
+        forks: forkData,
+        pulls: pullData
+      });
     })
     .catch(() => {
       alert("User don't exist. Please enter a valid username.");
     });
   }
-
-  // componentDidMount() {
-  //   const user = this.state.username;
-  //   if(user) {
-  //     fetch(`https://api.github.com/users/${user}`)
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw Error("No user.");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(({avatar_url, repos_url, events_url}) => {
-  //       this.setState({
-  //         userInfo: {avatar: avatar_url, repos_url, events_url}
-  //       });
-  //     })
-  //     .catch(() => {
-  //       alert("User don't exist. Please enter a valid username.");
-  //     });
-  //   }
-
-  //   // const userData = this.state.userData;
-  //   // if(userData) {
-  //   //   fetch(`${this.state.userData.repos_url}`)
-  //   //   .then(response => {
-  //   //     if (!response.ok) {
-  //   //       throw Error("No user repos data.");
-  //   //     }
-  //   //     return response.json();
-  //   //   })
-  //   //   .then(data => {
-  //   //     console.log(data);
-  //   //   })
-  //   // }
-  // }
-  
 
   // render
   render() {
@@ -143,8 +96,8 @@ class App extends Component {
         ? (
           <section>
             <h1>{this.state.username}</h1>
-            {/* <RecentForks forks={this.state.forks} />
-            <RecentPulls pulls={this.state.pulls} /> */}
+            <RecentForks forks={this.state.forks} />
+            <RecentPulls pulls={this.state.pulls} />
           </section> 
         )
         : (
