@@ -71,9 +71,10 @@ class App extends Component {
         }
       });
 
-      const pullData = pulled.map(({ payload: {pull_request: {title, state}} }) => {
+      const pullData = pulled.map(({ payload: {pull_request: {title, state, html_url}} }) => {
         return {
           pullName: title,
+          pullUrl: html_url,
           status: state
         }
       });
