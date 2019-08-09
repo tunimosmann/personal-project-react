@@ -80,6 +80,7 @@ class App extends Component {
       });
 
       this.setState({
+        // test {...forkData}
         forks: forkData,
         pulls: pullData
       });
@@ -91,9 +92,6 @@ class App extends Component {
 
   // render
   render() {
-
-    // console.log(this.state.forks);
-
     return (
       <div>
       { this.state.username
@@ -102,6 +100,7 @@ class App extends Component {
             <h1>{this.state.username}</h1>
             { this.state.forks.length > 0 ? <RecentForks forks={this.state.forks} /> : <p>No recent Forks.</p> }
             { this.state.pulls.length > 0 ? <RecentPulls pulls={this.state.pulls} /> : <p>No recent Pull Requests.</p> }
+            {/* Add reset/search another user button */}
           </section> 
         )
         : (
