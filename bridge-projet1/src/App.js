@@ -85,20 +85,23 @@ class App extends Component {
       });
     })
     .catch(() => {
-      alert("User don't exist. Please enter a valid username.");
+      alert("Please enter a valid username.");
     });
   }
 
   // render
   render() {
+
+    // console.log(this.state.forks);
+
     return (
       <div>
       { this.state.username
         ? (
           <section>
             <h1>{this.state.username}</h1>
-            <RecentForks forks={this.state.forks} />
-            <RecentPulls pulls={this.state.pulls} />
+            { this.state.forks.length > 0 ? <RecentForks forks={this.state.forks} /> : <p>No recent Forks.</p> }
+            { this.state.pulls.length > 0 ? <RecentPulls pulls={this.state.pulls} /> : <p>No recent Pull Requests.</p> }
           </section> 
         )
         : (

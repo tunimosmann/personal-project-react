@@ -1,16 +1,12 @@
 import React from 'react';
 
-const RecentForks = (props) => {
+const RecentForks = ({forks}) => {
+    // console.log(forks);
     return <div>
         <h2>Recent Forks</h2>
 
         <ul>
-            {/* {
-                <li>
-                    <a href={forkUrl}>{forkName}</a>
-                    <p>Forked from: {forkedFrom}</p>
-                </li>
-            } */}
+            { forks.map(fork => <li><a href={fork.forkUrl}>{fork.forkName}</a><p>Forked from: {fork.forkedFrom}</p></li>) }
         </ul>
     </div>
 }

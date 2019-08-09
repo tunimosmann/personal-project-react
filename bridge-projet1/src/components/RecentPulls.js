@@ -1,18 +1,11 @@
 import React from 'react';
 
-const RecentPulls = (props) => {
+const RecentPulls = ({pulls}) => {
     return <div>
         <h2>Recent Pull Requests</h2>
 
-        {console.log(props)}
-
         <ul>
-            {/* {
-                <li>
-                    <a href={pullUrl}>{pullName}</a>
-                    <p>Status: {status}</p>
-                </li>
-            } */}
+            { pulls.map(pull => <li><a href={pull.pullUrl}>{pull.pullName}</a><p>Status: {pull.status}</p></li>) }
         </ul>
     </div>
 }
