@@ -50,8 +50,8 @@ class App extends Component {
       }
       return response.json();
     })
-    .then(({login}) => {
-      return fetch(`https://api.github.com/users/${login}/events`);
+    .then(({login: username}) => {
+      return fetch(`https://api.github.com/users/${username}/events`);
     })
     .then(response => {
       if (!response.ok) {

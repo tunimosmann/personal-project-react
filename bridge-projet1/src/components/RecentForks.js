@@ -1,7 +1,7 @@
 import React from 'react';
 
 const RecentForks = ({forks}) => {
-    // console.log(forks);
+
     return <div>
         <h2>Recent Forks</h2>
 
