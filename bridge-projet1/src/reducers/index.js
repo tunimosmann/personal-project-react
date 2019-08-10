@@ -1,6 +1,8 @@
-// import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
+import searchUser from './searchUser';
+import userResults from './userResults';
 
-// export default combineReducers({
-//     visibilityFilter,
-//     todos
-// })
+export default combineReducers({
+    searchUser,
+    userResults
+})

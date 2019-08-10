@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import './App.css';
 
 // Components
@@ -10,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchEntry: "",
+      inputEntry: "",
       username: "",
       forks: [],
       pulls: [],
@@ -27,17 +28,17 @@ class App extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    if(this.state.searchEntry.trim() === "") {
+    if(this.state.inputEntry.trim() === "") {
       alert("Please enter a valid username.");
       return;
     } 
 
-    const user = this.state.searchEntry.toLowerCase();
+    const user = this.state.inputEntry.toLowerCase();
     this.fetchUser(user);
 
     this.setState({
-      searchEntry: "",
-      username: this.state.searchEntry,
+      inputEntry: "",
+      username: this.state.inputEntry,
     }); 
   }
 
@@ -92,7 +93,7 @@ class App extends Component {
   render() {
     return (
       <div>
-      { this.state.username
+      { this.props.username
         ? 
         <Results 
           username={this.state.username} 
@@ -110,7 +111,18 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = 
+const mapStateToProps = state => ({username: state.searchUser.username});
 
+// const mapDispatchToProps = dispatch => ({
+//   sendMessage: messaga => {
+//   dispatch(sendMessage(message));
+//   dispatch(navigateTo({ routeName: 'messagesList' }));
+//   },
+//  });
 
-export default App;
+export default connect(
+  mapStateToProps
+  // ,
+  // actionCreators
+)(App);
+// export default App;
