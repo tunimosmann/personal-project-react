@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import './App.css';
 
 // Components
-import RecentForks from "./components/RecentForks";
-import RecentPulls from "./components/RecentPulls";
+import Form from "./components/Form";
+import Results from "./components/Results";
 
 class App extends Component {
   // constructor
@@ -17,7 +17,6 @@ class App extends Component {
     }
   }
 
-  // MAKE FUNCTIONS PURE
   // functions
   handleChange = event => {
     this.setState({
@@ -80,7 +79,6 @@ class App extends Component {
       });
 
       this.setState({
-        // test {...forkData}
         forks: forkData,
         pulls: pullData
       });
@@ -95,25 +93,24 @@ class App extends Component {
     return (
       <div>
       { this.state.username
-        ? (
-          <section>
-            <h1>{this.state.username}</h1>
-            { this.state.forks.length > 0 ? <RecentForks forks={this.state.forks} /> : <p>No recent Forks.</p> }
-            { this.state.pulls.length > 0 ? <RecentPulls pulls={this.state.pulls} /> : <p>No recent Pull Requests.</p> }
-            {/* Add reset/search another user button */}
-          </section> 
-        )
-        : (
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="searchEntry">GitHub Username</label>
-            <input type="text" id="searchEntry" name="searchEntry" onChange={this.handleChange}></input>
-            <button>Get User</button>
-          </form>
-        )
+        ? 
+        <Results 
+          username={this.state.username} 
+          forks={this.state.forks}
+          pulls={this.state.pulls}
+        />
+        : 
+        <Form 
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+        />
       }  
       </div>
     )
   }
 }
+
+// const mapStateToProps = 
+
 
 export default App;
