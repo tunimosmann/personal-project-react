@@ -1,4 +1,9 @@
-const searchUser = (state = {}, action) => {
+const initialState = {
+    searchEntry: "",
+    username: ""
+}
+
+const searchUser = (state = initialState, action) => {
     switch (action.type) {
         case 'INPUT_ENTRY':
             return { 

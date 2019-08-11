@@ -1,4 +1,9 @@
-const userResults = (state = {}, action) => {
+const initialState = {
+    forks: [],
+    pulls: []
+}
+
+const userResults = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_FORKS':
             return { 
