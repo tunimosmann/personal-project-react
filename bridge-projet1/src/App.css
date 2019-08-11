@@ -1,33 +1,114 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+body {
+  background-color: black;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+form, 
+section {
+  padding: 100px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+form {
+  max-width: 280px;
+}
+
+section {
+  max-width: 500px;
+}
+
+h1,
+label {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 24px;
+  color: yellow;
+  font-weight: 700;
+}
+
+h1 {
+  text-align: left;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+label,
+input,
+button {
+  box-sizing: border-box;
+  width: 100%;
+  display: block;
+}
+
+input,
+button {
+  height: 32px;
+}
+
+input {
+  padding: 4px 8px;
+  margin-bottom: 6px;
+}
+
+button {
+  appearance: none;
+  background-color: yellow;
+  border: 1px solid transparent;
+  font-weight: 700;
+  transition: background-color 350ms ease-in-out, color 350ms ease-in-out, border 350ms ease-in-out;  
+}
+
+button:hover {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+}
+
+/* Results page */
+
+section ul {
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+section li {
+  background-color: white;
+  color: black;
+  padding: 12px;
+  border-radius: 4px;
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+li a {
+  font-weight: 700;
+  color: black;
+  text-decoration: none;
+}
+
+li a:hover {
+  padding-left: 10px;
+}
+
+li p {
+  margin-bottom: 0;
+}
+
+section button {
+  max-width: 200px;
+}
+
+.open {
+  color: green;
+}
+
+.merged {
+  color: rebeccapurple;
+}
+
+.closed {
+  color: red;
 }

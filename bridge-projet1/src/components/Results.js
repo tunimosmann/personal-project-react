@@ -6,10 +6,10 @@ import ConnectedResetButton from "./ResetButton";
 
 const Results = props => {
     return (
-    <section>
+    <section className>
         <h1>{ props.username }</h1>
-        { props.forks.length > 0 ? <RecentForks forks={ props.forks } /> : <p className="error">No recent Forks.</p> }
-        { props.pulls.length > 0 ? <RecentPulls pulls={ props.pulls } /> : <p className="error">No recent Pull Requests.</p> }
+        { props.forks.length > 0 ? <RecentForks forks={ props.forks } /> : <h2 className="error">No recent Forks.</h2> }
+        { props.pulls.length > 0 ? <RecentPulls pulls={ props.pulls } /> : <h2 className="error">No recent Pull Requests.</h2> }
         {<ConnectedResetButton />}
     </section> 
     )

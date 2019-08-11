@@ -10,7 +10,7 @@ const ResetButton = props => {
     }
 
     return <div>
-        <button onClick={handleSubmit}>Search another user.</button>
+        <button onClick={handleSubmit}>Search another user</button>
     </div>
 }
 
