@@ -90,7 +90,7 @@ import Results from "./components/Results";
   //   });
   // }
 
-  console.log("app props", props);
+  // console.log("app props", props);
 
   // render
   // render() {

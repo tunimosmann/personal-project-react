@@ -6,7 +6,7 @@ import RecentForks from "./RecentForks";
 import RecentPulls from "./RecentPulls";
 
 const Results = props => {
-    // console.log(props.state)
+    // console.log(props.state);
 
     return (
     <section>
