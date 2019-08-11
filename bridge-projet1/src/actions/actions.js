@@ -28,21 +28,8 @@ export function setPullRequests(payload) {
     }
 }
 
-export function resetUser(payload) {
-    return { 
-        type: ACTION_TYPES.SET_PULL_REQUESTS,
-        payload
-    }
-}
-
 export function fetchUser(user) {
-    
-
-    //make dispatch only return dispatch
     return function (dispatch) {
-
-        console.log("here", user);
-
         return fetch(`https://api.github.com/users/${user}`)
         .then(response => {
             if (!response.ok) {
@@ -60,6 +47,8 @@ export function fetchUser(user) {
             return response.json();
         })
         .then(data => {
+            const username = data[0].actor.login;
+
             const forked = data.filter(entry => entry.type === "ForkEvent");
             const pulled = data.filter(entry => entry.type === "PullRequestEvent");
 
@@ -81,49 +70,17 @@ export function fetchUser(user) {
 
             return {
                 forks: forkData,
-                pulls: pullData
+                pulls: pullData,
+                username
             };
         })
-        .then(({forks, pulls}) => {
+        .then(({forks, pulls, username}) => {
             dispatch(setForks(forks));
             dispatch(setPullRequests(pulls));
-
-            
+            dispatch(setUsername(username));
         })
         .catch(() => {
             alert("Please enter a valid username.");
         });
     };
 }
-
-
-// export default actions = {
-//     // inputEntry = payload => ({
-//     //     type: ACTION_TYPES.INPUT_ENTRY,
-//     //     payload
-//     // }),
-//     // searchUser = payload => ({
-//     //     type: ACTION_TYPES.SEARCH_USER,
-//     //     payload
-//     // }),
-//     // setUsername = payload => ({
-//     //     type: ACTION_TYPES.SET_USERNAME,
-//     //     payload
-//     // }),
-//     // searchEvents = payload => ({
-//     //     type: ACTION_TYPES.SEARCH_EVENTS,
-//     //     payload
-//     // }),
-//     // setForks = payload => ({
-//     //     type: ACTION_TYPES.SET_FORKS,
-//     //     payload
-//     // }),
-//     // setPullRequests = payload => ({
-//     //     type: ACTION_TYPES.SET_PULL_REQUESTS,
-//     //     payload
-//     // }),
-//     // resetUser = payload => ({
-//     //     type: ACTION_TYPES.RESET_USER,
-//     //     payload
-//     // })
-// }

@@ -5,4 +5,4 @@ import userResults from './userResults';
 export default combineReducers({
     searchUser,
     userResults
-})
+});

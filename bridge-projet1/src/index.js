@@ -12,12 +12,10 @@ import rootReducer from './reducers'
 const store = createStore(
     rootReducer, 
     applyMiddleware(thunk),
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 ReactDOM.render(
     <Provider store={store}>
-        {/* {console.log(store.getState())} */}
         <ConnectedApp />
     </Provider>, document.getElementById('root')
 );
